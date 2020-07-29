@@ -5,18 +5,18 @@ A simple wizard made using vue.js
 
 ## Installation
 ```sh
-$ npm install vuezard
+$ npm install @stoumann/vuezard
 ```
 
 ## Usage
 Add this to your javascript code
 ```js
 import Vue from 'vue';
-import Vuezard from 'vuezard';
+import {Vuezard, TabContent} from '@stoumann/vuezard';
 
 export default {
 	components: {
-		Vuezard
+		Vuezard, TabContent
 	}
 }
 ```
@@ -30,6 +30,7 @@ Add this to your html template
 </vuezard>
 ```
 
+
 ## Props
 | Name | Type | Default value |
 | ------ | ------ | ------ |
@@ -41,6 +42,7 @@ Add this to your html template
 | title | String | '' |
 | subTitle | String | '' |
 
+
 ## Methods
 | Name | Description |
 | ------ | ------ |
@@ -49,6 +51,7 @@ Add this to your html template
 | @onChange | Emits on every button click with the index of the previous and next tab |
 | @onLoading | *Not ready yet* |
 | @onValidate | *Not ready yet* |
+
 
 ## Styling
 If you like to use a default styling you can add this css to work from
