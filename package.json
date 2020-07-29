@@ -1,7 +1,7 @@
 {
-  "name": "vuezard",
+  "name": "@stoumann/vuezard",
   "version": "0.1.0",
-  "description": "",
+  "description": "A simple wizard made using vue.js",
   "main": "dist/vuezard.ssr.js",
   "browser": "dist/vuezard.esm.js",
   "module": "dist/vuezard.esm.js",
@@ -40,5 +40,22 @@
   },
   "engines": {
     "node": ">=10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stoumann/vuezard.git"
+  },
+  "keywords": [
+    "vuejs",
+    "vue.js",
+    "vue",
+    "wizard",
+    "wizard"
+  ],
+  "author": "Mark Stoumann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stoumann/vuezard/issues"
+  },
+  "homepage": "https://github.com/stoumann/vuezard#readme"
 }
