@@ -1,11 +1,11 @@
 {
-  "name": "vue-wizard",
+  "name": "vuezard",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/vue-wizard.ssr.js",
-  "browser": "dist/vue-wizard.esm.js",
-  "module": "dist/vue-wizard.esm.js",
-  "unpkg": "dist/vue-wizard.min.js",
+  "main": "dist/vuezard.ssr.js",
+  "browser": "dist/vuezard.esm.js",
+  "module": "dist/vuezard.esm.js",
+  "unpkg": "dist/vuezard.min.js",
   "files": [
     "dist/*",
     "src/**/*.vue"
