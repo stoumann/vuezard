@@ -70,7 +70,7 @@ if (!argv.format || argv.format === 'es') {
     ...baseConfig,
     external,
     output: {
-      file: 'dist/vue-wizard.esm.js',
+      file: 'dist/vuezard.esm.js',
       format: 'esm',
       exports: 'named',
     },
@@ -104,7 +104,7 @@ if (!argv.format || argv.format === 'cjs') {
     external,
     output: {
       compact: true,
-      file: 'dist/vue-wizard.ssr.js',
+      file: 'dist/vuezard.ssr.js',
       format: 'cjs',
       name: 'VueWizard',
       exports: 'named',
@@ -133,7 +133,7 @@ if (!argv.format || argv.format === 'iife') {
     external,
     output: {
       compact: true,
-      file: 'dist/vue-wizard.min.js',
+      file: 'dist/vuezard.min.js',
       format: 'iife',
       name: 'VueWizard',
       exports: 'named',
