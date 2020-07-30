@@ -34,6 +34,9 @@
 //
 //
 //
+//
+//
+//
 var script = {
   name: 'wizard-tab',
   props: {
@@ -215,7 +218,14 @@ var __vue_render__ = function () {
       has_error: _vm.tab.validationError
     },
     style: _vm.tab.active ? _vm.stepTitleStyle : {}
-  }, [_vm._v("\n                    " + _vm._s(_vm.tab.title) + "\n                ")])])], 2)])]);
+  }, [_vm._v("\n                    " + _vm._s(_vm.tab.title) + "\n                ")]), _vm._v(" "), _c('span', {
+    staticClass: "stepSubtitle",
+    class: {
+      active: _vm.tab.active,
+      has_error: _vm.tab.validationError
+    },
+    style: _vm.tab.active ? _vm.stepTitleStyle : {}
+  }, [_vm._v("\n                    " + _vm._s(_vm.tab.subTitle) + "\n                ")])])], 2)])]);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -848,6 +858,10 @@ var script$2 = {
   name: 'tab-content',
   props: {
     title: {
+      type: String,
+      default: ''
+    },
+    subTitle: {
       type: String,
       default: ''
     },

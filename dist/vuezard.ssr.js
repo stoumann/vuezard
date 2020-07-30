@@ -88,6 +88,9 @@ function _nonIterableRest() {
 //
 //
 //
+//
+//
+//
 var script = {
   name: 'wizard-tab',
   props: {
@@ -244,7 +247,14 @@ var __vue_render__ = function __vue_render__() {
       has_error: _vm.tab.validationError
     },
     style: _vm.tab.active ? _vm.stepTitleStyle : {}
-  }, [_vm._v("\n                    " + _vm._s(_vm.tab.title) + "\n                ")])])], 2)])]);
+  }, [_vm._v("\n                    " + _vm._s(_vm.tab.title) + "\n                ")]), _vm._v(" "), _c('span', {
+    staticClass: "stepSubtitle",
+    class: {
+      active: _vm.tab.active,
+      has_error: _vm.tab.validationError
+    },
+    style: _vm.tab.active ? _vm.stepTitleStyle : {}
+  }, [_vm._v("\n                    " + _vm._s(_vm.tab.subTitle) + "\n                ")])])], 2)])]);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -256,7 +266,7 @@ var __vue_inject_styles__ = undefined;
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-42671277";
+var __vue_module_identifier__ = "data-v-dc758a64";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
@@ -832,6 +842,10 @@ var script$2 = {
       type: String,
       default: ''
     },
+    subTitle: {
+      type: String,
+      default: ''
+    },
 
     /***
      * Icon name for the upper circle corresponding to the tab
@@ -933,7 +947,7 @@ var __vue_inject_styles__$2 = undefined;
 var __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__$2 = "data-v-53f2c319";
+var __vue_module_identifier__$2 = "data-v-1e730e81";
 /* functional template */
 
 var __vue_is_functional_template__$2 = false;
