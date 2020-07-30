@@ -13,6 +13,10 @@ export default {
         type: String,
         default: ''
       },
+      subTitle: {
+        type: String,
+        default: ''
+      },
       /***
        * Icon name for the upper circle corresponding to the tab
        */

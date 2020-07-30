@@ -28,6 +28,9 @@
                     <span class="stepTitle" :class="{active:tab.active, has_error:tab.validationError}" :style="tab.active ? stepTitleStyle : {}">
                         {{tab.title}}
                     </span>
+                    <span class="stepSubtitle" :class="{active:tab.active, has_error:tab.validationError}" :style="tab.active ? stepTitleStyle : {}">
+                        {{tab.subTitle}}
+                    </span>
                 </slot>
             </div>
         </a>
