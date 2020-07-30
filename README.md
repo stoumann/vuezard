@@ -24,9 +24,9 @@ export default {
 Add this to your html template
 ```html
 <vuezard @on-complete="done()">
-    <tab-content title="Title 1" subtitle="Subtitle 1">ADD CONTENT HERE</tab-content>
-    <tab-content title="Title 2" subtitle="Subtitle 2">ADD CONTENT HERE</tab-content>
-    <tab-content title="Title 3" subtitle="Subtitle 3">ADD CONTENT HERE</tab-content>
+    <tab-content title="Title 1" subTitle="Subtitle 1">ADD CONTENT HERE</tab-content>
+    <tab-content title="Title 2" subTitle="Subtitle 2">ADD CONTENT HERE</tab-content>
+    <tab-content title="Title 3" subTitle="Subtitle 3">ADD CONTENT HERE</tab-content>
 </vuezard>
 ```
 
