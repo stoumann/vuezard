@@ -29,12 +29,12 @@
 
 						<div class="wizard-footer-right">
 							<slot name="custom-buttons-right" v-bind="slotProps"></slot>
-							<button class="finish-button" @click="nextTab" @keyup.enter="nextTab" v-if="isLastStep" role="button" tabindex="0">
+							<button class="finish-button" :disabled="!isValid()" @click="nextTab" @keyup.enter="nextTab" v-if="isLastStep" role="button" tabindex="0">
 								<slot name="finish" v-bind="slotProps">
 									{{finishButtonText}}
 								</slot>
 							</button>
-							<button class="next-button" @click="nextTab" @keyup.enter="nextTab" role="button" tabindex="0" v-else>
+							<button class="next-button" :disabled="!isValid()" @click="nextTab" @keyup.enter="nextTab" role="button" tabindex="0" v-else>
 								<slot name="next" v-bind="slotProps">
 									{{nextButtonText}}
 								</slot>
@@ -188,6 +188,11 @@
 			}
 		},
 		methods: {
+			isValid () {
+				if (this.tabs && this.tabs[this.activeTabIndex]) {
+					return this.tabs[this.activeTabIndex].isValid;
+				}
+			},
 			emitTabChange (prevIndex, nextIndex) {
 				this.$emit('on-change', prevIndex, nextIndex);
 				this.$emit('update:startIndex', nextIndex);

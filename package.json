@@ -1,6 +1,6 @@
 {
   "name": "@stoumann/vuezard",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A simple wizard made using vue.js",
   "main": "dist/vuezard.ssr.js",
   "browser": "dist/vuezard.esm.js",

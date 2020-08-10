@@ -44,6 +44,9 @@ export default {
       additionalInfo: {
         type: Object,
         default: () => {}
+      },
+      isValidTab: {
+        type: Boolean
       }
     },
     inject: ['addTab', 'removeTab'],
@@ -52,7 +55,8 @@ export default {
         active: false,
         validationError: null,
         checked: false,
-        tabId: ''
+        tabId: '',
+        isValid: false,
       }
     },
     computed: {
@@ -74,6 +78,11 @@ export default {
         this.$el.parentNode.removeChild(this.$el)
       }
       this.removeTab(this)
+    },
+    watch: {
+      isValidTab (newVal) {
+        this.isValid = newVal;
+      }
     }
   }
 </script>
