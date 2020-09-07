@@ -21,7 +21,7 @@
 						<div class="wizard-footer-left">
 							<button class="prev-button" @click="prevTab" @keyup.enter="prevTab" v-if="displayPrevButton" role="button" tabindex="0">
 								<slot name="prev" v-bind="slotProps">
-									{{backButtonText}}
+									<span v-html="backButtonText"></span>
 								</slot>
 							</button>
 							<slot name="custom-buttons-left" v-bind="slotProps"></slot>
@@ -31,12 +31,12 @@
 							<slot name="custom-buttons-right" v-bind="slotProps"></slot>
 							<button class="finish-button" :disabled="!isValid()" @click="nextTab" @keyup.enter="nextTab" v-if="isLastStep" role="button" tabindex="0">
 								<slot name="finish" v-bind="slotProps">
-									{{finishButtonText}}
+									<span v-html="finishButtonText"></span>
 								</slot>
 							</button>
 							<button class="next-button" :disabled="!isValid()" @click="nextTab" @keyup.enter="nextTab" role="button" tabindex="0" v-else>
 								<slot name="next" v-bind="slotProps">
-									{{nextButtonText}}
+									<span v-html="nextButtonText"></span>
 								</slot>
 							</button>
 						</div>
