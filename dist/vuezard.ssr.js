@@ -328,6 +328,10 @@ var script$1 = {
       type: String,
       default: 'Finish'
     },
+    dropdownIconClass: {
+      type: String,
+      default: 'fa fa-fw fa-chevron-down'
+    },
     hideButtons: {
       type: Boolean,
       default: false
@@ -379,10 +383,19 @@ var script$1 = {
       currentPercentage: 0,
       maxStep: 0,
       loading: false,
-      tabs: []
+      tabs: [],
+      openDropdown: true
     };
   },
   computed: {
+    currentTab: function currentTab() {
+      if (this.tabs.length === 0) {
+        return {
+          title: ''
+        };
+      }
+      return this.tabs[this.activeTabIndex];
+    },
     slotProps: function slotProps() {
       return {
         nextTab: this.nextTab,
@@ -436,6 +449,11 @@ var script$1 = {
     }
   },
   methods: {
+    isValid: function isValid() {
+      if (this.tabs && this.tabs[this.activeTabIndex]) {
+        return this.tabs[this.activeTabIndex].isValid;
+      }
+    },
     emitTabChange: function emitTabChange(prevIndex, nextIndex) {
       this.$emit('on-change', prevIndex, nextIndex);
       this.$emit('update:startIndex', nextIndex);
@@ -728,7 +746,7 @@ var __vue_render__$1 = function __vue_render__() {
 
   return _c('div', {
     staticClass: "vuezard"
-  }, [_vm._ssrNode((_vm.title ? "<div class=\"wizard-header\"><h4 class=\"wizard-title\">" + _vm._ssrEscape(_vm._s(_vm.title)) + "</h4> <p class=\"wizard-subtitle\">" + _vm._ssrEscape(_vm._s(_vm.subTitle)) + "</p></div>" : "<!---->") + " "), _vm._ssrNode("<div class=\"wizard-container\">", "</div>", [_vm._ssrNode("<div role=\"tablist\" class=\"wizard-tabs\">", "</div>", [_vm._ssrNode("<ul class=\"wizard-tablist\">", "</ul>", [_vm._l(_vm.tabs, function (tab, index) {
+  }, [_vm._ssrNode((_vm.title ? "<div class=\"wizard-header\"><h4 class=\"wizard-title\">" + _vm._ssrEscape(_vm._s(_vm.title)) + "</h4> <p class=\"wizard-subtitle\">" + _vm._ssrEscape(_vm._s(_vm.subTitle)) + "</p></div>" : "<!---->") + " "), _vm._ssrNode("<div class=\"wizard-container\">", "</div>", [_vm._ssrNode((_vm.currentTab ? "<div class=\"wizard-dropdown\"><div class=\"dd-title-icon\"><i" + _vm._ssrClass(null, _vm.currentTab.icon) + "></i></div> <div class=\"dd-title\"><div class=\"title\">" + _vm._ssrEscape(_vm._s(_vm.currentTab.title)) + "</div> <div class=\"subtitle\">" + _vm._ssrEscape(_vm._s(_vm.currentTab.subTitle)) + "</div></div> <div class=\"dd-icon\"><i" + _vm._ssrClass(null, _vm.dropdownIconClass) + "></i></div></div>" : "<!---->") + " "), _vm.openDropdown ? _vm._ssrNode("<div role=\"tablist\" class=\"wizard-tabs\">", "</div>", [_vm._ssrNode("<ul class=\"wizard-tablist\">", "</ul>", [_vm._l(_vm.tabs, function (tab, index) {
     return _vm._t("tab", [_c('wizard-tab', {
       attrs: {
         "tab": tab,
@@ -751,7 +769,7 @@ var __vue_render__$1 = function __vue_render__() {
       "index": index,
       "tab": tab
     });
-  })], 2)]), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"wizard-content-footer\">", "</div>", [_vm._ssrNode("<div class=\"wizard-content\">", "</div>", [_vm._t("default", null, null, _vm.slotProps)], 2), _vm._ssrNode(" "), !_vm.hideButtons ? _vm._ssrNode("<div class=\"wizard-card-footer\">", "</div>", [_vm._t("footer", [_c('div', {
+  })], 2)]) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"wizard-content-footer\">", "</div>", [_vm._ssrNode("<div class=\"wizard-content\">", "</div>", [_vm._t("default", null, null, _vm.slotProps)], 2), _vm._ssrNode(" "), !_vm.hideButtons ? _vm._ssrNode("<div class=\"wizard-card-footer\">", "</div>", [_vm._t("footer", [_c('div', {
     staticClass: "wizard-footer-left"
   }, [_vm.displayPrevButton ? _c('button', {
     staticClass: "prev-button",
@@ -769,11 +787,16 @@ var __vue_render__$1 = function __vue_render__() {
         return _vm.prevTab($event);
       }
     }
-  }, [_vm._t("prev", [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(_vm.backButtonText) + "\n\t\t\t\t\t\t\t")], null, _vm.slotProps)], 2) : _vm._e(), _vm._v(" "), _vm._t("custom-buttons-left", null, null, _vm.slotProps)], 2), _vm._v(" "), _c('div', {
+  }, [_vm._t("prev", [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.backButtonText)
+    }
+  })], null, _vm.slotProps)], 2) : _vm._e(), _vm._v(" "), _vm._t("custom-buttons-left", null, null, _vm.slotProps)], 2), _vm._v(" "), _c('div', {
     staticClass: "wizard-footer-right"
   }, [_vm._t("custom-buttons-right", null, null, _vm.slotProps), _vm._v(" "), _vm.isLastStep ? _c('button', {
     staticClass: "finish-button",
     attrs: {
+      "disabled": !_vm.isValid(),
       "role": "button",
       "tabindex": "0"
     },
@@ -787,9 +810,14 @@ var __vue_render__$1 = function __vue_render__() {
         return _vm.nextTab($event);
       }
     }
-  }, [_vm._t("finish", [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(_vm.finishButtonText) + "\n\t\t\t\t\t\t\t")], null, _vm.slotProps)], 2) : _c('button', {
+  }, [_vm._t("finish", [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.finishButtonText)
+    }
+  })], null, _vm.slotProps)], 2) : _c('button', {
     staticClass: "next-button",
     attrs: {
+      "disabled": !_vm.isValid(),
       "role": "button",
       "tabindex": "0"
     },
@@ -803,7 +831,11 @@ var __vue_render__$1 = function __vue_render__() {
         return _vm.nextTab($event);
       }
     }
-  }, [_vm._t("next", [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(_vm.nextButtonText) + "\n\t\t\t\t\t\t\t")], null, _vm.slotProps)], 2)], 2)], null, _vm.slotProps)], 2) : _vm._e()], 2)], 2)], 2);
+  }, [_vm._t("next", [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.nextButtonText)
+    }
+  })], null, _vm.slotProps)], 2)], 2)], null, _vm.slotProps)], 2) : _vm._e()], 2)], 2)], 2);
 };
 
 var __vue_staticRenderFns__$1 = [];
@@ -815,7 +847,7 @@ var __vue_inject_styles__$1 = undefined;
 var __vue_scope_id__$1 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__$1 = "data-v-4fab8c86";
+var __vue_module_identifier__$1 = "data-v-82eab3ae";
 /* functional template */
 
 var __vue_is_functional_template__$1 = false;
@@ -876,6 +908,9 @@ var script$2 = {
     additionalInfo: {
       type: Object,
       default: function _default() {}
+    },
+    isValidTab: {
+      type: Boolean
     }
   },
   inject: ['addTab', 'removeTab'],
@@ -884,7 +919,8 @@ var script$2 = {
       active: false,
       validationError: null,
       checked: false,
-      tabId: ''
+      tabId: '',
+      isValid: false
     };
   },
   computed: {
@@ -907,6 +943,11 @@ var script$2 = {
     }
 
     this.removeTab(this);
+  },
+  watch: {
+    isValidTab: function isValidTab(newVal) {
+      this.isValid = newVal;
+    }
   }
 };/* script */
 var __vue_script__$2 = script$2;
@@ -947,7 +988,7 @@ var __vue_inject_styles__$2 = undefined;
 var __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__$2 = "data-v-1e730e81";
+var __vue_module_identifier__$2 = "data-v-20b3fe24";
 /* functional template */
 
 var __vue_is_functional_template__$2 = false;

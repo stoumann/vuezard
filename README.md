@@ -37,6 +37,7 @@ Add this to your html template
 | backButtonText | String | 'Back' |
 | nextButtonText | String | 'Next' |
 | finishButtonText | String | 'Finish' |
+| dropdownIconClass | String | 'fa fa-fw fa-chevron-down' |
 | hideButtons | Boolean | false |
 | startIndex | Integer | 0 |
 | title | String | '' |
@@ -61,6 +62,23 @@ If you like to use a default styling you can add this css to work from
 .vuezard .wizard-header .wizard-title {font-size: 24px;margin: 0 10px 0 0;padding: 0;}
 .vuezard .wizard-header .wizard-subtitle {font-size: 14px;color: #999;}
 .vuezard .wizard-container {display: flex;align-items: stretch;height: 100%;}
+.vuezard .wizard-container .wizard-dropdown { display: none; }
+@media only screen and (max-width: 992px) {
+    .vuezard .wizard-container {
+        flex-direction: column;
+    }
+    .vuezard .wizard-container .wizard-dropdown {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+    }
+    .vuezard .wizard-container .wizard-dropdown .dd-title {
+        flex: 1;
+    }
+    .vuezard .wizard-container .wizard-dropdown .dd-icon svg {
+        height: 20px;
+    }
+}
 .vuezard .wizard-container .wizard-tabs .wizard-tablist {list-style: none;margin: 0;padding: 0;height: 100%;background: #F7FAFC;border-right: 1px solid #EDF2F7;}
 /* .vuezard .wizard-container .wizard-tabs .wizard-tablist li {} */
 .vuezard .wizard-container .wizard-tabs .wizard-tablist li a {display: block;border-bottom: 1px solid #EDF2F7;text-decoration: none;}

@@ -300,6 +300,10 @@ var script$1 = {
       type: String,
       default: 'Finish'
     },
+    dropdownIconClass: {
+      type: String,
+      default: 'fa fa-fw fa-chevron-down'
+    },
     hideButtons: {
       type: Boolean,
       default: false
@@ -353,11 +357,21 @@ var script$1 = {
       currentPercentage: 0,
       maxStep: 0,
       loading: false,
-      tabs: []
+      tabs: [],
+      openDropdown: true
     };
   },
 
   computed: {
+    currentTab() {
+      if (this.tabs.length === 0) {
+        return {
+          title: ''
+        };
+      }
+      return this.tabs[this.activeTabIndex];
+    },
+
     slotProps() {
       return {
         nextTab: this.nextTab,
@@ -420,6 +434,12 @@ var script$1 = {
 
   },
   methods: {
+    isValid() {
+      if (this.tabs && this.tabs[this.activeTabIndex]) {
+        return this.tabs[this.activeTabIndex].isValid;
+      }
+    },
+
     emitTabChange(prevIndex, nextIndex) {
       this.$emit('on-change', prevIndex, nextIndex);
       this.$emit('update:startIndex', nextIndex);
@@ -732,7 +752,28 @@ var __vue_render__$1 = function () {
     staticClass: "wizard-subtitle"
   }, [_vm._v(_vm._s(_vm.subTitle))])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "wizard-container"
+  }, [_vm.currentTab ? _c('div', {
+    staticClass: "wizard-dropdown",
+    on: {
+      "click": function ($event) {
+        _vm.openDropdown = !_vm.openDropdown;
+      }
+    }
   }, [_c('div', {
+    staticClass: "dd-title-icon"
+  }, [_c('i', {
+    class: _vm.currentTab.icon
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "dd-title"
+  }, [_c('div', {
+    staticClass: "title"
+  }, [_vm._v(_vm._s(_vm.currentTab.title))]), _vm._v(" "), _c('div', {
+    staticClass: "subtitle"
+  }, [_vm._v(_vm._s(_vm.currentTab.subTitle))])]), _vm._v(" "), _c('div', {
+    staticClass: "dd-icon"
+  }, [_c('i', {
+    class: _vm.dropdownIconClass
+  })])]) : _vm._e(), _vm._v(" "), _vm.openDropdown ? _c('div', {
     staticClass: "wizard-tabs",
     attrs: {
       "role": "tablist"
@@ -762,7 +803,7 @@ var __vue_render__$1 = function () {
       "index": index,
       "tab": tab
     });
-  })], 2)]), _vm._v(" "), _c('div', {
+  })], 2)]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "wizard-content-footer"
   }, [_c('div', {
     staticClass: "wizard-content"
@@ -786,11 +827,16 @@ var __vue_render__$1 = function () {
         return _vm.prevTab($event);
       }
     }
-  }, [_vm._t("prev", [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(_vm.backButtonText) + "\n\t\t\t\t\t\t\t")], null, _vm.slotProps)], 2) : _vm._e(), _vm._v(" "), _vm._t("custom-buttons-left", null, null, _vm.slotProps)], 2), _vm._v(" "), _c('div', {
+  }, [_vm._t("prev", [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.backButtonText)
+    }
+  })], null, _vm.slotProps)], 2) : _vm._e(), _vm._v(" "), _vm._t("custom-buttons-left", null, null, _vm.slotProps)], 2), _vm._v(" "), _c('div', {
     staticClass: "wizard-footer-right"
   }, [_vm._t("custom-buttons-right", null, null, _vm.slotProps), _vm._v(" "), _vm.isLastStep ? _c('button', {
     staticClass: "finish-button",
     attrs: {
+      "disabled": !_vm.isValid(),
       "role": "button",
       "tabindex": "0"
     },
@@ -804,9 +850,14 @@ var __vue_render__$1 = function () {
         return _vm.nextTab($event);
       }
     }
-  }, [_vm._t("finish", [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(_vm.finishButtonText) + "\n\t\t\t\t\t\t\t")], null, _vm.slotProps)], 2) : _c('button', {
+  }, [_vm._t("finish", [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.finishButtonText)
+    }
+  })], null, _vm.slotProps)], 2) : _c('button', {
     staticClass: "next-button",
     attrs: {
+      "disabled": !_vm.isValid(),
       "role": "button",
       "tabindex": "0"
     },
@@ -820,7 +871,11 @@ var __vue_render__$1 = function () {
         return _vm.nextTab($event);
       }
     }
-  }, [_vm._t("next", [_vm._v("\n\t\t\t\t\t\t\t\t" + _vm._s(_vm.nextButtonText) + "\n\t\t\t\t\t\t\t")], null, _vm.slotProps)], 2)], 2)], null, _vm.slotProps)], 2) : _vm._e()])])]);
+  }, [_vm._t("next", [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.nextButtonText)
+    }
+  })], null, _vm.slotProps)], 2)], 2)], null, _vm.slotProps)], 2) : _vm._e()])])]);
 };
 
 var __vue_staticRenderFns__$1 = [];
@@ -895,6 +950,9 @@ var script$2 = {
     additionalInfo: {
       type: Object,
       default: () => {}
+    },
+    isValidTab: {
+      type: Boolean
     }
   },
   inject: ['addTab', 'removeTab'],
@@ -904,7 +962,8 @@ var script$2 = {
       active: false,
       validationError: null,
       checked: false,
-      tabId: ''
+      tabId: '',
+      isValid: false
     };
   },
 
@@ -933,8 +992,14 @@ var script$2 = {
     }
 
     this.removeTab(this);
-  }
+  },
 
+  watch: {
+    isValidTab(newVal) {
+      this.isValid = newVal;
+    }
+
+  }
 };
 
 /* script */

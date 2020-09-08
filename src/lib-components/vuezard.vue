@@ -5,7 +5,19 @@
 			<p class="wizard-subtitle">{{subTitle}}</p>
 		</div>
 		<div class="wizard-container">
-			<div class="wizard-tabs" role="tablist">
+			<div v-if="currentTab" class="wizard-dropdown" @click="openDropdown = !openDropdown">
+				<div class="dd-title-icon">
+					<i :class="currentTab.icon"></i>
+				</div>
+				<div class="dd-title">
+					<div class="title">{{currentTab.title}}</div>
+					<div class="subtitle">{{currentTab.subTitle}}</div>
+				</div>
+				<div class="dd-icon">
+					<i :class="dropdownIconClass"></i>
+				</div>
+			</div>
+			<div v-if="openDropdown" class="wizard-tabs" role="tablist">
 				<ul class="wizard-tablist">
 					<slot name="tab" v-for="(tab, index) in tabs" :index="index" :tab="tab">
 						<wizard-tab :tab="tab" :index="index" @click.native="navigateToTab(index)" @keyup.enter.native="navigateToTab(index)" :transition="transition"></wizard-tab>
@@ -80,6 +92,10 @@
 				type: String,
 				default: 'Finish'
 			},
+			dropdownIconClass: {
+				type: String,
+				default: 'fa fa-fw fa-chevron-down'
+			},
 			hideButtons: {
 				type: Boolean,
 				default: false
@@ -131,10 +147,17 @@
 				currentPercentage: 0,
 				maxStep: 0,
 				loading: false,
-				tabs: []
+				tabs: [],
+				openDropdown: true,
 			}
 		},
 		computed: {
+			currentTab () {
+				if (this.tabs.length === 0) {
+					return { title: '' }
+				};
+				return this.tabs[this.activeTabIndex];
+			},
 			slotProps () {
 				return {
 					nextTab: this.nextTab,
