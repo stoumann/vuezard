@@ -6,7 +6,6 @@
   "browser": "dist/vuezard.esm.js",
   "module": "dist/vuezard.esm.js",
   "unpkg": "dist/vuezard.min.js",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "files": [
     "dist/*",
     "src/**/*.vue"
