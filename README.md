@@ -75,9 +75,6 @@ If you like to use a default styling you can add this css to work from
     .vuezard .wizard-container .wizard-dropdown .dd-title {
         flex: 1;
     }
-    .vuezard .wizard-container .wizard-dropdown .dd-icon svg {
-        height: 20px;
-    }
 }
 .vuezard .wizard-container .wizard-tabs .wizard-tablist {list-style: none;margin: 0;padding: 0;height: 100%;background: #F7FAFC;border-right: 1px solid #EDF2F7;}
 /* .vuezard .wizard-container .wizard-tabs .wizard-tablist li {} */

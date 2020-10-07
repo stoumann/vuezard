@@ -208,14 +208,14 @@
 				}
 
 				return percentage;
-			}
-		},
-		methods: {
+			},
 			isValid () {
 				if (this.tabs && this.tabs[this.activeTabIndex]) {
 					return this.tabs[this.activeTabIndex].isValid;
 				}
 			},
+		},
+		methods: {
 			emitTabChange (prevIndex, nextIndex) {
 				this.$emit('on-change', prevIndex, nextIndex);
 				this.$emit('update:startIndex', nextIndex);
