@@ -133,6 +133,10 @@
 				validator: (value) => {
 					return value >= 0;
 				}
+			},
+			activateAllTabs: {
+				type: Boolean,
+				default: false
 			}
 		},
 		provide () {
@@ -470,15 +474,20 @@
 				this.activeTabIndex = index;
 			},
 			initializeTabs () {
-				if (this.tabs.length > 0 && this.startIndex === 0) {
-					this.activateTab(this.activeTabIndex);
+				if (this.activateAllTabs) {
+					this.activateAll();
+				} else {
+					if (this.tabs.length > 0 && this.startIndex === 0) {
+						this.activateTab(this.activeTabIndex);
+					}
+	
+					if (this.startIndex < this.tabs.length) {
+						this.activateTabAndCheckStep(this.startIndex);
+					} else {
+						window.console.warn(`Prop startIndex set to ${this.startIndex} is greater than the number of tabs - ${this.tabs.length}. Make sure that the starting index is less than the number of tabs registered`);
+					}
 				}
 
-				if (this.startIndex < this.tabs.length) {
-					this.activateTabAndCheckStep(this.startIndex);
-				} else {
-					window.console.warn(`Prop startIndex set to ${this.startIndex} is greater than the number of tabs - ${this.tabs.length}. Make sure that the starting index is less than the number of tabs registered`);
-				}
 			}
 		},
 		mounted () {
