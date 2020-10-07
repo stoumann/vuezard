@@ -213,13 +213,13 @@
 
 				return percentage;
 			},
+		},
+		methods: {
 			isValid () {
 				if (this.tabs && this.tabs[this.activeTabIndex]) {
 					return this.tabs[this.activeTabIndex].isValid;
 				}
 			},
-		},
-		methods: {
 			emitTabChange (prevIndex, nextIndex) {
 				this.$emit('on-change', prevIndex, nextIndex);
 				this.$emit('update:startIndex', nextIndex);
@@ -474,20 +474,15 @@
 				this.activeTabIndex = index;
 			},
 			initializeTabs () {
-				if (this.activateAllTabs) {
-					this.activateAll();
-				} else {
-					if (this.tabs.length > 0 && this.startIndex === 0) {
-						this.activateTab(this.activeTabIndex);
-					}
-	
-					if (this.startIndex < this.tabs.length) {
-						this.activateTabAndCheckStep(this.startIndex);
-					} else {
-						window.console.warn(`Prop startIndex set to ${this.startIndex} is greater than the number of tabs - ${this.tabs.length}. Make sure that the starting index is less than the number of tabs registered`);
-					}
+				if (this.tabs.length > 0 && this.startIndex === 0) {
+					this.activateTab(this.activeTabIndex);
 				}
 
+				if (this.startIndex < this.tabs.length) {
+					this.activateTabAndCheckStep(this.startIndex);
+				} else {
+					window.console.warn(`Prop startIndex set to ${this.startIndex} is greater than the number of tabs - ${this.tabs.length}. Make sure that the starting index is less than the number of tabs registered`);
+				}
 			}
 		},
 		mounted () {
@@ -496,6 +491,12 @@
 		watch: {
 			'$route.path' (newRoute) {
 				this.checkRouteChange(newRoute);
+			},
+			activateAllTabs (newVal) {
+				console.log('Activate', newVal);
+				if (newVal) {
+					this.activateAll();
+				}
 			}
 		}
 	};
