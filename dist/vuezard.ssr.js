@@ -369,6 +369,10 @@ var script$1 = {
       validator: function validator(value) {
         return value >= 0;
       }
+    },
+    activateAllTabs: {
+      type: Boolean,
+      default: false
     }
   },
   provide: function provide() {
@@ -731,6 +735,13 @@ var script$1 = {
   watch: {
     '$route.path': function $routePath(newRoute) {
       this.checkRouteChange(newRoute);
+    },
+    activateAllTabs: function activateAllTabs(newVal) {
+      console.log('Activate', newVal);
+
+      if (newVal) {
+        this.activateAll();
+      }
     }
   }
 };/* script */
@@ -847,7 +858,7 @@ var __vue_inject_styles__$1 = undefined;
 var __vue_scope_id__$1 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__$1 = "data-v-82eab3ae";
+var __vue_module_identifier__$1 = "data-v-bc2a3014";
 /* functional template */
 
 var __vue_is_functional_template__$1 = false;

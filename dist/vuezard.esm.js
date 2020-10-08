@@ -341,6 +341,10 @@ var script$1 = {
       validator: value => {
         return value >= 0;
       }
+    },
+    activateAllTabs: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -726,6 +730,14 @@ var script$1 = {
   watch: {
     '$route.path'(newRoute) {
       this.checkRouteChange(newRoute);
+    },
+
+    activateAllTabs(newVal) {
+      console.log('Activate', newVal);
+
+      if (newVal) {
+        this.activateAll();
+      }
     }
 
   }
